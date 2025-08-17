@@ -2,10 +2,7 @@ import React, { useState, useEffect } from "react";
 import {
   ArrowUpRight,
   Users,
-  MessageSquare,
   Clock,
-  DollarSign,
-  CheckCircle,
   Filter,
   ChevronDown,
   ChevronUp,
@@ -44,7 +41,6 @@ import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
   Collapsible,
-  CollapsibleTrigger,
   CollapsibleContent,
 } from "@/components/ui/collapsible";
 

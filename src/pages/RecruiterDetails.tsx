@@ -28,7 +28,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
 // Define the valid status types
-type StatusType = "Available" | "Sold";
+type StatusType = "Available" | "Sold" | "Closed" | "Pending";
 
 const RecruiterDetails = () => {
   // Sample data - replace with your actual data
@@ -214,6 +214,7 @@ const RecruiterDetails = () => {
       Available: "bg-green-100 text-green-800",
       Sold: "bg-red-500 text-white",
       Closed: "bg-green-100 text-green-800",
+      Pending: "bg-yellow-100 text-yellow-800",
     };
 
     return statusColors[status] || "bg-gray-100 text-gray-800";

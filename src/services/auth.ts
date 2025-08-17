@@ -1,8 +1,6 @@
 import axiosInstance from "@/axios";
 import { useMutation } from "@tanstack/react-query";
 
-import { useNavigate } from "react-router-dom";
-
 interface SignupData {
   firstName: string;
   lastName: string;
@@ -50,8 +48,6 @@ export const useSignup = () => {
 };
 
 export const useCreateSupplierProfile = () => {
-  const navigate = useNavigate();
-
   return useMutation<ApiResponse, Error, submissionData>({
     mutationFn: async (data: submissionData) => {
       try {
