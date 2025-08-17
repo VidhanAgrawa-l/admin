@@ -144,12 +144,12 @@ const AdminDashboard: React.FC = () => {
   const [loadingTimeSeries, setLoadingTimeSeries] = useState<boolean>(true);
   const [loadingTransactionTimeSeries, setLoadingTransactionTimeSeries] =
     useState<boolean>(true);
-  const [loadingFilterOptions, setLoadingFilterOptions] =
-    useState<boolean>(true);
+  const [, setLoadingFilterOptions] =
+    useState<boolean>(true); // ignore unused value
   const [isRefreshing, setIsRefreshing] = useState<boolean>(false);
 
   // Error states
-  const [errorMetrics, setErrorMetrics] = useState<string | null>(null);
+  const [, setErrorMetrics] = useState<string | null>(null); // ignore unused value
   const [errorTimeSeries, setErrorTimeSeries] = useState<string | null>(null);
   const [errorTransactionTimeSeries, setErrorTransactionTimeSeries] = useState<
     string | null
@@ -410,11 +410,11 @@ const AdminDashboard: React.FC = () => {
   // Handle filter change for candidate time series
   const handleFilterChange = (
     name: keyof TimeSeriesFilters,
-    value: string | string[] | number | boolean
+    value: string | string[] | number | boolean | undefined
   ) => {
     setTimeSeriesFilters({
       ...timeSeriesFilters,
-      [name]: value,
+      [name]: value as any,
     });
   };
 
@@ -915,14 +915,20 @@ const AdminDashboard: React.FC = () => {
                       Roles
                     </label>
                     <Select
-                      multiple
-                      value={timeSeriesFilters.roles || []}
-                      onValueChange={(values) =>
-                        handleFilterChange("roles", values)
-                      }
+                      onValueChange={(val) => {
+                        const current = new Set(timeSeriesFilters.roles || []);
+                        current.has(val) ? current.delete(val) : current.add(val);
+                        handleFilterChange("roles", Array.from(current));
+                      }}
                     >
                       <SelectTrigger className="w-full">
-                        <SelectValue placeholder="Select roles" />
+                        <SelectValue
+                          placeholder={
+                            (timeSeriesFilters.roles?.length || 0) > 0
+                              ? `${timeSeriesFilters.roles?.length} selected`
+                              : "Select roles"
+                          }
+                        />
                       </SelectTrigger>
                       <SelectContent>
                         {filterOptions?.roles?.map((role) => (
@@ -940,14 +946,22 @@ const AdminDashboard: React.FC = () => {
                       Locations
                     </label>
                     <Select
-                      multiple
-                      value={timeSeriesFilters.locations || []}
-                      onValueChange={(values) =>
-                        handleFilterChange("locations", values)
-                      }
+                      onValueChange={(val) => {
+                        const current = new Set(
+                          timeSeriesFilters.locations || []
+                        );
+                        current.has(val) ? current.delete(val) : current.add(val);
+                        handleFilterChange("locations", Array.from(current));
+                      }}
                     >
                       <SelectTrigger className="w-full">
-                        <SelectValue placeholder="Select locations" />
+                        <SelectValue
+                          placeholder={
+                            (timeSeriesFilters.locations?.length || 0) > 0
+                              ? `${timeSeriesFilters.locations?.length} selected`
+                              : "Select locations"
+                          }
+                        />
                       </SelectTrigger>
                       <SelectContent>
                         {(filterOptions?.city || filterOptions?.locations)?.map(

@@ -30,6 +30,16 @@ import { Button } from "@/components/ui/button";
 // Define the valid status types
 type StatusType = "Available" | "Sold" | "Closed" | "Pending";
 
+const getStatusColor = (status: StatusType): string => {
+  const statusColors: Record<StatusType, string> = {
+    Available: "bg-green-100 text-green-800",
+    Sold: "bg-red-500 text-white",
+    Closed: "bg-green-100 text-green-800",
+    Pending: "bg-yellow-100 text-yellow-800",
+  };
+  return statusColors[status];
+};
+
 const RecruiterDetails = () => {
   // Sample data - replace with your actual data
   const recruiterData = {
@@ -208,17 +218,6 @@ const RecruiterDetails = () => {
       amount: "$6,200",
     },
   ];
-
-  const getStatusColor = (status: StatusType): string => {
-    const statusColors: Record<StatusType, string> = {
-      Available: "bg-green-100 text-green-800",
-      Sold: "bg-red-500 text-white",
-      Closed: "bg-green-100 text-green-800",
-      Pending: "bg-yellow-100 text-yellow-800",
-    };
-
-    return statusColors[status] || "bg-gray-100 text-gray-800";
-  };
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
